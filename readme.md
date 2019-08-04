@@ -21,3 +21,10 @@ This project consist of:
 2. A form index page with AJAX processing
 3. A PHP process page to handle AJAX request
 4. A debugger page to ease find bug during coding process
+
+# How to Install
+
+1. Run Apache and MySQL server (eg: XAMPP, Laragon)
+2. Clone this project into www @ htdocs folder
+3. Create database named <b>ag_test_2</b> & Import SQL file included in this project.
+4. Run project
