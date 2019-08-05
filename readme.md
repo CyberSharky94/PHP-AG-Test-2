@@ -28,3 +28,4 @@ This project consist of:
 2. Clone this project into www @ htdocs folder
 3. Create database named <b>ag_test_2</b> & Import SQL file included in this project.
 4. Run project (eg: http://localhost/php-ag-test-2)
+<i>* Sila pastikan tetapan <b>short_open_tag<b> di dalam <b>php.ini<b> adalah <b>ON</b></i>
