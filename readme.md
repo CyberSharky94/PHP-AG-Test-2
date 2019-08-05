@@ -27,4 +27,4 @@ This project consist of:
 1. Run Apache and MySQL server (eg: XAMPP, Laragon)
 2. Clone this project into www @ htdocs folder
 3. Create database named <b>ag_test_2</b> & Import SQL file included in this project.
-4. Run project
+4. Run project (eg: http://localhost/php-ag-test-2)
