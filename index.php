@@ -80,12 +80,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <script>
+        // Add data to selected list
         $('#btn_submit').click(function(){
             var state = $('#state').val();
             if(state != null)
             {
-                console.log(state);
-
                 var ajax = $.ajax({
                     method: "POST",
                     url: "add_state_process.php",
@@ -94,13 +93,8 @@
 
                 ajax.done(function() { 
                     console.log( "success" ); 
-                    // Remove from dropdown
-                    var state_name = $('#state_item_' + state).text();
-                    $('#state_item_' + state).remove();
-
-                    // Add to list
-                    $('#selected_no_value').remove(); // Remove no value in list
-                    $('#selected_state_list').append('<option id="selected_state_item_"'+state+' value="'+state+'">'+state_name+'</option>');
+                    // Refresh dropdown and selected list
+                    refresh_data();
                 });
                 ajax.fail(function() {console.log( "error" ); });
                 ajax.always(function() {console.log( "complete" ); });
@@ -108,6 +102,54 @@
                 alert("RALAT: Sila pilih negeri yang disenaraikan");
             }
         });
+
+        // Delete from selected list
+        $('#selected_state_list').dblclick(function(){
+            var data = $(this).val();
+
+            if(data != null && data != '')
+            {
+                var selected_state = data[0];
+
+                var ajax = $.ajax({
+                    method: "POST",
+                    url: "remove_selected_state.php",
+                    data: { selected_state: selected_state }
+                });
+
+                ajax.done(function() { 
+                    console.log( "success" ); 
+                    // Refresh dropdown and selected list
+                    refresh_data();
+                });
+                ajax.fail(function() {console.log( "error" ); });
+                ajax.always(function() {console.log( "complete" ); });
+            } else {
+                alert("RALAT: Sila pilih negeri yang disenaraikan");
+            }
+        });
+
+        // Function to refresh data on both dropdown and list element
+        function refresh_data() {
+            var ajax = $.ajax({
+                    method: "GET",
+                    url: "refresh_data.php"
+                });
+
+                ajax.done(function(data) { 
+                    console.log( "success" ); 
+
+                    var return_data = JSON.parse(data);
+
+                    var state_list_item = return_data.state_list_item;
+                    $('#state').html(state_list_item);
+
+                    var selected_state_list_item = return_data.selected_state_list_item;
+                    $('#selected_state_list').html(selected_state_list_item);
+                });
+                ajax.fail(function() {console.log( "error" ); });
+                ajax.always(function() {console.log( "complete" ); });
+        }
     </script>
 </body>
 </html>
